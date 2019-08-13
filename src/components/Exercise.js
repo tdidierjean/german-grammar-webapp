@@ -3,11 +3,10 @@ import {
   Input,
   Form,
   FormGroup,
-  Container,
-  Row,
   Col,
   Card,
   CardBody,
+  Label
 } from 'reactstrap';
 
 // Conditionally display the answer 
@@ -55,15 +54,13 @@ class Exercise extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Col sm="8">
             <Card className="border-primary">
             {/* <CardTitle>Grammar exercise</CardTitle> */}
             <CardBody>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
-                {this.props.exercise.question} ({this.props.exercise.hint})
+                <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
                 <Input type="text" value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
                 <DisplayAnswer displayAnswer={this.state.displayAnswer} answer={this.props.exercise.answer} />
               </FormGroup>
@@ -80,8 +77,6 @@ class Exercise extends Component {
             </CardBody> 
             </Card> 
           </Col>
-        </Row>
-      </Container>
     )
   }
 }
