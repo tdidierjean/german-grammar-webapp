@@ -15,7 +15,7 @@ class App extends Component {
   render() {
       return (
           <div>
-              <Navbar color="inverse" light expand="md">
+              <Navbar className="bg-primary navbar-dark">
                   <NavbarBrand href="/">German grammar trainer</NavbarBrand>
               </Navbar>
               <Jumbotron>
