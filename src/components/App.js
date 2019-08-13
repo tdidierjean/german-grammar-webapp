@@ -7,6 +7,7 @@ import {
   Col,
   Jumbotron,
 } from 'reactstrap';
+import './../styles/Theme.css';
 import './../styles/App.css';
 import ExerciseList from './ExerciseList'
 

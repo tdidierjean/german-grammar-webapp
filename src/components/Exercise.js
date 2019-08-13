@@ -6,11 +6,14 @@ import {
   Container,
   Row,
   Col,
+  Card,
+  CardBody,
 } from 'reactstrap';
 
+// Conditionally display the answer 
 function DisplayAnswer(props) {
   if (props.displayAnswer) {
-    return <p>Correct answer: {props.answer}</p>
+    return <div className="invalid-feedback" style={{ display:'block' }}>Correct answer: {props.answer}</div>
   }
   return ''
 }
@@ -19,10 +22,10 @@ class Exercise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentExerciseIndex: 0,
       displayAnswer: false,
       submittedAnswer: '',
-      correctAnswer: props.exercise.answer
+      correctAnswer: props.exercise.answer,
+      skipOnEmptySumbit: false
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -30,20 +33,22 @@ class Exercise extends Component {
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
   }
 
+  // Decide if displaying error or moving to next exercise
   handleSubmit(event) {    
     event.preventDefault();
 
-    if (this.state.submittedAnswer === this.state.correctAnswer) {
-      this.setState(state => ({
-        currentExerciseIndex: ++state.currentExerciseIndex
-      }));
+    // Move to next exercise if answer is correct, or if user submits empty field after making a mistake
+    if (this.state.submittedAnswer === this.state.correctAnswer || this.state.skipOnEmptySumbit === true) {
+      this.props.onSuccessfulAnswer();
     } else {
       this.setState(state => ({
-        displayAnswer: true
+        displayAnswer: true,
+        skipOnEmptySumbit: true
       }));  
     }
   }
 
+  // Sync input field state
   handleAnswerChange(event) {
     this.setState({submittedAnswer: event.target.value});
   }
@@ -53,11 +58,16 @@ class Exercise extends Component {
       <Container>
         <Row>
           <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Card className="border-primary">
+            {/* <CardTitle>Grammar exercise</CardTitle> */}
+            <CardBody>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 {this.props.exercise.question} ({this.props.exercise.hint})
                 <Input type="text" value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
                 <DisplayAnswer displayAnswer={this.state.displayAnswer} answer={this.props.exercise.answer} />
+              </FormGroup>
+              <FormGroup>
                 <Input
                   type="submit"
                   value="OK"
@@ -67,6 +77,8 @@ class Exercise extends Component {
                 />
               </FormGroup>
             </Form>
+            </CardBody> 
+            </Card> 
           </Col>
         </Row>
       </Container>

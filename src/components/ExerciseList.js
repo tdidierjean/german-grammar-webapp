@@ -22,11 +22,12 @@ class ExerciseList extends Component {
     this.nextExercise = this.nextExercise.bind(this);
   }
 
+  // Moving the index forward
   nextExercise() {
     this.setState(state => ({
       currentExerciseIndex: ++state.currentExerciseIndex
     }));
-    console.log(this.state.currentExerciseIndex)
+    console.log('next exercise')
   }
 
   render() {
@@ -39,8 +40,11 @@ class ExerciseList extends Component {
 
           return (
             <div>
-              {/* {exercisesToRender.map(exercise => <Exercise key={exercise.question} exercise={exercise} />)} */}
-              <Exercise key={this.state.currentExerciseIndex} exercise={exercisesToRender[this.state.currentExerciseIndex]} />
+              <Exercise 
+                key={this.state.currentExerciseIndex} 
+                exercise={exercisesToRender[this.state.currentExerciseIndex]} 
+                onSuccessfulAnswer={this.nextExercise}  
+              />
             </div>
           )
         }}
