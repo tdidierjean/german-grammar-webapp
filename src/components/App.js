@@ -16,7 +16,7 @@ class App extends Component {
       return (
           <div>
               <Navbar className="bg-primary navbar-dark">
-                  <NavbarBrand href="/">German grammar trainer</NavbarBrand>
+                  <NavbarBrand href="/">German grammar trainer BRANCH</NavbarBrand>
               </Navbar>
               <Jumbotron>
                   <Container>
