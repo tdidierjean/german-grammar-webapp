@@ -12,7 +12,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // 2
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/query'
+  uri: process.env.REACT_APP_API_URI || 'http://localhost:8080/query'
 })
 
 // 3
