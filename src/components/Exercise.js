@@ -9,19 +9,30 @@ import {
   Label
 } from 'reactstrap';
 
-// Conditionally display the answer 
-function DisplayAnswer(props) {
-  if (props.displayAnswer) {
-    return <div className="invalid-feedback" style={{ display:'block' }}>Correct answer: {props.answer}</div>
+// Conditionally display the valid / invalid answer block
+function AnswerValidation(props) {
+  if (!props.answerWasSubmitted || props.isCorrectAnswer) {
+    return ''
   }
-  return ''
+
+  return <div className="invalid-feedback" style={{ display:'block' }}>Correct answer: {props.answer}</div>
+}
+
+// Validate submission is correct
+function validateSubmission(submission, correctAnswer) {
+  if (submission.toLowerCase().trim() === correctAnswer) {
+    return true;
+  }  
+
+  return false;
 }
 
 class Exercise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayAnswer: false,
+      isCorrectAnswer: false,
+      answerWasSubmitted: false,
       submittedAnswer: '',
       correctAnswer: props.exercise.answer,
       skipOnEmptySumbit: false
@@ -37,11 +48,20 @@ class Exercise extends Component {
     event.preventDefault();
 
     // Move to next exercise if answer is correct, or if user submits empty field after making a mistake
-    if (this.state.submittedAnswer === this.state.correctAnswer || this.state.skipOnEmptySumbit === true) {
+    if (validateSubmission(this.state.submittedAnswer, this.state.correctAnswer)) {
+      this.setState(state => ({
+        isCorrectAnswer: true,
+        answerWasSubmitted: true
+      }));
+      setTimeout(() => {
+        this.props.onSuccessfulAnswer();
+      }, 1000);
+    }
+    else if (this.state.skipOnEmptySumbit === true) {
       this.props.onSuccessfulAnswer();
     } else {
       this.setState(state => ({
-        displayAnswer: true,
+        answerWasSubmitted: true,
         skipOnEmptySumbit: true
       }));  
     }
@@ -53,16 +73,22 @@ class Exercise extends Component {
   }
 
   render() {
+    let inputValidState = ''
+    if (this.state.isCorrectAnswer) {
+      inputValidState = 'is-valid'
+    }
+
     return (
-          <Col sm="8">
+          <Col sm="8" className="mt-2">
             <Card className="border-primary">
-            {/* <CardTitle>Grammar exercise</CardTitle> */}
             <CardBody>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
-                <Input type="text" value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
-                <DisplayAnswer displayAnswer={this.state.displayAnswer} answer={this.props.exercise.answer} />
+                <div className="input-group">
+                <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
+                <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />
+                </div>
               </FormGroup>
               <FormGroup>
                 <Input
