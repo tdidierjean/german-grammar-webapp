@@ -30,17 +30,28 @@ function validateSubmission(submission, correctAnswer) {
 class Exercise extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isCorrectAnswer: false,
-      answerWasSubmitted: false,
-      submittedAnswer: '',
-      correctAnswer: props.exercise.answer,
-      skipOnEmptySumbit: false
-    };
+    this.state = this.getNewState(props);
 
     // This binding is necessary to make `this` work in the callback
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
+  }
+
+  // Update state if props have changed
+  componentDidUpdate(prevProps) {
+    if (prevProps.exercise !== this.props.exercise) {
+      this.setState(this.getNewState(this.props));
+    }
+  }
+
+  getNewState(props){
+    return {
+      isCorrectAnswer: false,
+      answerWasSubmitted: false,
+      submittedAnswer: '',
+      correctAnswer: props.exercise.answer,
+      skipOnEmptySumbit: false,
+    }
   }
 
   // Decide if displaying error or moving to next exercise
@@ -86,8 +97,8 @@ class Exercise extends Component {
               <FormGroup>
                 <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
                 <div className="input-group">
-                <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
-                <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />
+                  <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
+                  <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />
                 </div>
               </FormGroup>
               <FormGroup>
