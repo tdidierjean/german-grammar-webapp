@@ -38,16 +38,23 @@ class ExerciseList extends Component {
     this.setState(state => ({
       currentExerciseIndex: ++state.currentExerciseIndex
     }));
-    console.log('next exercise')
+  }
+
+  // Reset the index to 0
+  resetExercises() {
+    this.setState(state => ({
+      currentExerciseIndex: 0
+    }));
   }
 
   onExerciseTypeSelected(event) {
     const newType = event.target.value;
-    console.log(newType);
 
     this.setState(state => ({
       exerciseType: newType
     }));
+
+    this.resetExercises();
   }
 
   render() {
@@ -56,17 +63,17 @@ class ExerciseList extends Component {
       <Row>
       <ExerciseTypes onExerciseTypeSelected={this.onExerciseTypeSelected}></ExerciseTypes>
       <Query query={EXERCISE_QUERY} variables={{ exerciseType: this.state.exerciseType}}>
-        {({ loading, error, data }) => {
-          if (loading) return <div>Fetching</div>
-          if (error) return <div>Error</div>
-          const exercisesToRender = data.exercises
+        {({ loading, error, data, refetch }) => {
+          if (loading) return <div>Fetching</div>;
+          if (error) return <div>Error</div>;
 
           return (
             <Exercise
-              exercise={exercisesToRender[this.state.currentExerciseIndex]}
+              exercise={data.exercises[this.state.currentExerciseIndex]}
               onSuccessfulAnswer={this.nextExercise}
               exerciseCounter={this.state.currentExerciseIndex + 1}
               exerciseLimit={this.state.exerciseLimit}
+              refetchList={() => {refetch(); this.resetExercises()}}
             />
           )
         }}

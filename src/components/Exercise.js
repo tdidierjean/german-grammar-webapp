@@ -39,7 +39,7 @@ class Exercise extends Component {
 
   // Update state if props have changed
   componentDidUpdate(prevProps) {
-    if (prevProps.exercise !== this.props.exercise) {
+    if (this.props.exercise && prevProps.exercise !== this.props.exercise) {
       this.setState(this.getNewState(this.props));
     }
   }
@@ -84,38 +84,64 @@ class Exercise extends Component {
   }
 
   render() {
+    if (this.props.exercise) {
+      return this.renderExercise();
+    }
+
+    return this.renderEndOfExercises();
+  }
+
+  renderExercise() {
     let inputValidState = ''
     if (this.state.isCorrectAnswer) {
       inputValidState = 'is-valid'
     }
 
     return (
-          <Col sm="8" className="mt-2">
-            <Card className="border-primary">
-            <CardBody>
-            <Form onSubmit={this.handleSubmit}>
-              <FormGroup>
-                <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
-                <div className="exercise-counter">{this.props.exerciseCounter}/{this.props.exerciseLimit}</div>
-                <div className="input-group">
-                  <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
-                  <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />
-                </div>
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  type="submit"
-                  value="OK"
-                  onClick={this.nextExercise}
-                  color="success"
-                  bsSize="large"
-                />
-              </FormGroup>
-            </Form>
-            </CardBody> 
-            </Card> 
-          </Col>
-    )
+      <Col sm="8" className="mt-2">
+        <Card className="border-primary">
+        <CardBody>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
+            <div className="exercise-counter">{this.props.exerciseCounter}/{this.props.exerciseLimit}</div>
+            <div className="input-group">
+              <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
+              <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />
+            </div>
+          </FormGroup>
+          <FormGroup>
+            <Input
+              type="submit"
+              value="OK"
+              onClick={this.nextExercise}
+              color="success"
+              bsSize="large"
+            />
+          </FormGroup>
+        </Form>
+        </CardBody> 
+        </Card> 
+      </Col>
+    );
+  }
+
+  renderEndOfExercises() {
+    return (
+      <Col sm="8" className="mt-2">
+        <Card className="border-primary">
+        <CardBody>
+            <Input
+              type="button"
+              value="Show more exercises"
+              onClick={this.props.refetchList}
+              color="success"
+              bsSize="large"
+            />
+        </CardBody> 
+        </Card> 
+      </Col>
+    );
   }
 }
 
