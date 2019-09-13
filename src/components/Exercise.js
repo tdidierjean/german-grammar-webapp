@@ -96,6 +96,7 @@ class Exercise extends Component {
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label>{this.props.exercise.question} ({this.props.exercise.hint})</Label>
+                <div className="exercise-counter">{this.props.exerciseCounter}/{this.props.exerciseLimit}</div>
                 <div className="input-group">
                   <Input type="text" autoFocus className={inputValidState} value={this.state.submittedAnswer} onChange={this.handleAnswerChange} placeholder="Enter answer" />
                   <AnswerValidation answerWasSubmitted={this.state.answerWasSubmitted} isCorrectAnswer={this.state.isCorrectAnswer} answer={this.props.exercise.answer} />

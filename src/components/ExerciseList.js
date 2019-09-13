@@ -24,7 +24,8 @@ class ExerciseList extends Component {
     super(props);
     this.state = { 
       currentExerciseIndex: 0,
-      exerciseType: 'object'
+      exerciseType: 'object',
+      exerciseLimit: 10,
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -61,13 +62,12 @@ class ExerciseList extends Component {
           const exercisesToRender = data.exercises
 
           return (
-            // <div>
-              <Exercise
-                key={this.state.currentExerciseIndex}
-                exercise={exercisesToRender[this.state.currentExerciseIndex]}
-                onSuccessfulAnswer={this.nextExercise}
-              />
-            // </div>
+            <Exercise
+              exercise={exercisesToRender[this.state.currentExerciseIndex]}
+              onSuccessfulAnswer={this.nextExercise}
+              exerciseCounter={this.state.currentExerciseIndex + 1}
+              exerciseLimit={this.state.exerciseLimit}
+            />
           )
         }}
       </Query>
