@@ -16,7 +16,7 @@ class ArticleCasesTip extends Component {
             <CardHeader>
                 Case of articles
             </CardHeader>
-            <CardBody>
+            <CardBody className="table-responsive">
                 <Table>
                     <thead className="thead-light">
                     <tr>

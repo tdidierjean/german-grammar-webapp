@@ -98,7 +98,7 @@ class Exercise extends Component {
     }
 
     return (
-      <Col sm="8">
+      <Col sm="8" className="mt-2">
         <Card className="border-primary">
         <CardBody>
         <Form onSubmit={this.handleSubmit}>
@@ -128,7 +128,7 @@ class Exercise extends Component {
 
   renderEndOfExercises() {
     return (
-      <Col sm="8">
+      <Col sm="8" className="mt-2">
         <Card className="border-primary">
         <CardBody>
             <Input

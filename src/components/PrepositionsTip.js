@@ -70,7 +70,7 @@ class PrepositionsTip extends Component {
             <CardHeader>
                 List of prepositions and the case that follows.
             </CardHeader>
-            <CardBody>
+            <CardBody className="table-responsive">
                 <Table>
                     <thead className="thead-light">
                     <tr>

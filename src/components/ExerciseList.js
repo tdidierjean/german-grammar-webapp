@@ -78,7 +78,7 @@ class ExerciseList extends Component {
     return (
       <Container id="main-container">
       <h1>Exercise</h1>
-      <Row className="mt-2">
+      <Row>
       <ExerciseTypes onExerciseTypeSelected={this.onExerciseTypeSelected}></ExerciseTypes>
       <Query query={EXERCISE_QUERY} variables={{ exerciseType: this.state.exerciseType}}>
         {({ loading, error, data, refetch }) => {
@@ -97,7 +97,7 @@ class ExerciseList extends Component {
         }}
       </Query>
       </Row>
-      <Row className="mt-2">
+      <Row>
         <GrammarTip tip={grammarTip}/>
       </Row>
       </Container>
