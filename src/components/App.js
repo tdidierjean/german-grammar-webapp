@@ -22,7 +22,6 @@ class App extends Component {
                   <Container>
                       <Row>
                           <Col>
-                              <h1>Exercise</h1>
                               <ExerciseList />
                           </Col>
                       </Row>

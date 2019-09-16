@@ -8,6 +8,10 @@ import {
   Container,
   Row,
 } from 'reactstrap';
+import GrammarTip from './GrammarTip';
+import ArticleCasesTip from './ArticleCasesTip';
+import PrepositionsTip from './PrepositionsTip';
+
 
 const EXERCISE_QUERY = gql`
     query findExercises($exerciseType: String!) {
@@ -58,9 +62,23 @@ class ExerciseList extends Component {
   }
 
   render() {
+    let grammarTip;
+
+    switch (this.state.exerciseType) {
+      case "object":
+          grammarTip = <ArticleCasesTip/>;
+          break;      
+      case "preposition":
+        grammarTip = <PrepositionsTip/>;
+        break;
+      default:  
+    }
+
+
     return (
       <Container id="main-container">
-      <Row>
+      <h1>Exercise</h1>
+      <Row className="mt-2">
       <ExerciseTypes onExerciseTypeSelected={this.onExerciseTypeSelected}></ExerciseTypes>
       <Query query={EXERCISE_QUERY} variables={{ exerciseType: this.state.exerciseType}}>
         {({ loading, error, data, refetch }) => {
@@ -78,6 +96,9 @@ class ExerciseList extends Component {
           )
         }}
       </Query>
+      </Row>
+      <Row className="mt-2">
+        <GrammarTip tip={grammarTip}/>
       </Row>
       </Container>
     )
