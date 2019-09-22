@@ -23,7 +23,7 @@ class ExerciseTypes extends Component {
 
     render() {
         return (
-            <Col sm="4">
+            <Col sm="4" className="mt-2">
                 <Card className="border-primary">
                 <CardBody>
                 <h5 className="card-title text-primary">Pick a type of exercise</h5>
