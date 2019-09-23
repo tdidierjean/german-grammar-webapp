@@ -45,9 +45,9 @@ class PrepositionsTip extends Component {
                 "zwischen",
             ], 
             "genitive": [
-                "statt",
                 "außerhalb",
                 "innerhalb",
+                "statt",
                 "trotz",
                 "während",
                 "wegen",
