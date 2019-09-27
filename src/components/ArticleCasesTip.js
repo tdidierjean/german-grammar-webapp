@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
   Table,
   CardBody,
-  CardHeader,
   Card,
 } from 'reactstrap';
 
@@ -13,12 +12,10 @@ class ArticleCasesTip extends Component {
     render() {
         return (
             <Card className="border-primary">
-            <CardHeader>
-                Case of articles
-            </CardHeader>
             <CardBody className="table-responsive">
-                <Table>
-                    <thead className="thead-light">
+                <h4 className="text-primary">Case of articles</h4>
+                <Table className="table-tips table-row-borders">
+                    <thead className="bg-primary text-white">
                     <tr>
                         <th>Case</th>
                         <th>Masculine</th>

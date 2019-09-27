@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
   Table,
   CardBody,
-  CardHeader,
   Card,
 } from 'reactstrap';
 
@@ -57,22 +56,21 @@ class PrepositionsTip extends Component {
         // Combine the prepositions into a multidimensional array ready to be printed as a table
         const combined = [];
         let acc, dat, acc_dat, gen;
-        do {
+
+        while (prepositions.accusative.length || prepositions.dative.length || prepositions.accusative_dative.length || prepositions.genitive.length) {
             acc = prepositions.accusative.shift();
             dat = prepositions.dative.shift();
             acc_dat = prepositions.accusative_dative.shift();
             gen = prepositions.genitive.shift();
             combined.push([acc, dat, acc_dat, gen]);
-        } while (acc || dat || acc_dat || gen)
-
+        }
+        
         return (
             <Card className="border-primary">
-            <CardHeader>
-                List of prepositions and the case that follows.
-            </CardHeader>
             <CardBody className="table-responsive">
-                <Table>
-                    <thead className="thead-light">
+                <h4 className="text-primary">List of prepositions and the case that follows.</h4>
+                <Table className="table-tips table-col-borders">
+                    <thead className="bg-primary text-white">
                     <tr>
                         <th>Accusative</th>
                         <th>Dative</th>

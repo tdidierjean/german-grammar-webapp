@@ -1,8 +1,25 @@
 #main-container {
-  max-width: 800px
+  max-width: 1024px
 }
 
 .exercise-counter {
   float:right;
   color: #cccccc;
 }
+
+.table-tips {
+    border: 1px solid #D80E70;
+}
+
+.table-row-borders td, th {
+    border-top: 1px solid #D80E70 !important;
+    border-bottom: 1px solid #D80E70 !important;
+}
+
+.table-col-borders td, th {
+    border-bottom: 0;
+    border-top: 0;
+    border-right: 1px solid #D80E70 !important;
+    border-left: 1px solid #D80E70 !important;
+}
+
