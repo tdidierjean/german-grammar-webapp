@@ -22,7 +22,7 @@ class GrammarTip extends Component {
 
         return (
             <Col sm="12" className="mt-2">
-                <a onClick={this.toggle} style={{ marginBottom: '1rem' }} href="#">> Toggle grammar tip</a>
+                <button onClick={this.toggle} style={{ marginBottom: '1rem' }} href="#">&gt; Toggle grammar tip</button>
                 <Collapse isOpen={this.state.collapse}>
                     {this.props.tip}
                 </Collapse>
