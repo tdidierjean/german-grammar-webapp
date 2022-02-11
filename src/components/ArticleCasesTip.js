@@ -56,14 +56,14 @@ class ArticleCasesTip extends Component {
                         <td>Nominative</td>
                         <td>ein</td>
                         <td>eine</td>
-                        <td>eine</td>
+                        <td>ein</td>
                         <td>-</td>
                     </tr>
                     <tr>
                         <td>Accusative</td>
                         <td>einen</td>
                         <td>eine</td>
-                        <td>eine</td>
+                        <td>ein</td>
                         <td>-</td>
                     </tr>
                     <tr>
